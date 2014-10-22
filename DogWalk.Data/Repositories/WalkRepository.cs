@@ -31,14 +31,19 @@ namespace DogWalk.Data.Repositories
         public IEnumerable<WalkModel>GetWalk()
         {
             //create a list of walks from the database and save them as a variable
-            var walks = _dogWalkDatabaseEntities.Walks.AsEnumerable();
+            var walks = _dogWalkDatabaseEntities.Walks
+                                        //name of related property in entity
+                                        .Include("WalkStatu")
+                                        .AsEnumerable();
 
             List<WalkModel> walksForController = new List<WalkModel>();
 
             foreach(Walk walk in walks)
             {
-                //convert WalkStatusID from int to WalkStatusModel
-
+                //convert WalkStatus to WalkStatusModel
+                WalkStatu walkstatu = walk.WalkStatu;
+                //convert it here
+                //WalkStatusModel model = ?????
 
                 //convert walk from database type to model for controller to use
                 WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walk.WalkStatus.ID, walk.Walker.ID, walk.PaymentID, walk.
