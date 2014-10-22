@@ -11,7 +11,7 @@ namespace DogWalk.Data.Repositories
     class WalkRepository
     {
         //Create an instance of the repository
-        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
         public int CreateWalk(WalkModel newWalk)
         {
@@ -31,7 +31,7 @@ namespace DogWalk.Data.Repositories
         public IEnumerable<WalkModel>GetWalk()
         {
             //create a list of walks from the database and save them as a variable
-            var walks = _dogWalkDatabaseEntities.Walks
+            var walks = _dogWalkDatabaseEntities.Walk
                                         //name of related property in entity
                                         .Include("WalkStatus")
                                         .AsEnumerable();
