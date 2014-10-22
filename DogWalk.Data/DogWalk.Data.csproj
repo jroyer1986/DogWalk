@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\PaymentStatusModel.cs" />
+    <Compile Include="Models\PaymentTypeModel.cs" />
+    <Compile Include="Models\WalkerModel.cs" />
+    <Compile Include="Models\WalkModel.cs" />
+    <Compile Include="Models\WalkStatusModel.cs" />
     <Compile Include="Repositories\ContactMethod.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
