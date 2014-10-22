@@ -41,18 +41,25 @@ namespace DogWalk.Data.Repositories
             foreach(Walk walk in walks)
             {
                 //convert WalkStatus to WalkStatusModel
-                WalkStatus walkstatus = walk.WalkStatu;
+                WalkStatu walkstatus = walk.WalkStatu;
                 //convert it here
                 WalkStatusModel walkStatusModel = new WalkStatusModel(walkstatus.ID, walkstatus.Status, walkstatus.Explanation);
                 
                 Walker walker = walk.Walker;
                 WalkerModel walkerModel = new WalkerModel(walker.ID, walker.Name, walker.Phone, walker.Email);
 
-                Payment payment = walk.
-                PaymentModel paymentModel = new PaymentModel(payment.ID, payment.PaymentStatu, payment.Amount, payment.DatePaid, payment.PaymentType);
+                PaymentType paymentType = walk.Payment.PaymentType;
+                PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
+
+                PaymentStatu paymentStatu = walk.Payment.PaymentStatu;
+                PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatu.ID, paymentStatu.Status, paymentStatu.Explanation);
+
+                Payment payment = walk.Payment;
+                PaymentModel paymentModel = new PaymentModel(payment.ID, paymentStatusModel, payment.Amount, payment.DatePaid, paymentTypeModel);
+                
 
                 //convert walk from database type to model for controller to use
-                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, ;
+                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, paymentModel);
                 
                 walksForController.Add(walkModel);
             }
