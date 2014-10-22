@@ -11,7 +11,7 @@ namespace DogWalk.Data.Repositories
     class WalkRepository
     {
         //Create an instance of the repository
-        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
+        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
 
         public int CreateWalk(WalkModel newWalk)
         {
@@ -31,7 +31,7 @@ namespace DogWalk.Data.Repositories
         public IEnumerable<WalkModel>GetWalk()
         {
             //create a list of walks from the database and save them as a variable
-            var walks = _dogWalkDatabaseEntities.Walk
+            var walks = _dogWalkDatabaseEntities.Walks
                                         //name of related property in entity
                                         .Include("WalkStatus")
                                         .AsEnumerable();
@@ -41,7 +41,7 @@ namespace DogWalk.Data.Repositories
             foreach(Walk walk in walks)
             {
                 //convert WalkStatus to WalkStatusModel
-                WalkStatus walkstatus = walk.WalkStatus;
+                WalkStatus walkstatus = walk.WalkStatu;
                 //convert it here
                 WalkStatusModel walkStatusModel = new WalkStatusModel(walkstatus.ID, walkstatus.Status, walkstatus.Explanation);
                 
@@ -52,7 +52,7 @@ namespace DogWalk.Data.Repositories
                 PaymentModel paymentModel = new PaymentModel(payment.ID, payment.PaymentStatu, payment.Amount, payment.DatePaid, payment.PaymentType);
 
                 //convert walk from database type to model for controller to use
-                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, paymentModel);
+                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, ;
                 
                 walksForController.Add(walkModel);
             }
