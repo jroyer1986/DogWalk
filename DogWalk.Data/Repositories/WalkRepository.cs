@@ -28,7 +28,7 @@ namespace DogWalk.Data.Repositories
             return dbWalk.ID;
         }
 
-        public IEnumerable<WalkModel>GetWalks()
+        public IEnumerable<WalkModel> GetWalks()
         {
             //create a list of walks from the database and save them as a variable
             var walks = _dogWalkDatabaseEntities.Walks
@@ -105,5 +105,26 @@ namespace DogWalk.Data.Repositories
                 return null;
             }
         }
+
+        public void UpdateWalkStatus(WalkModel walk)
+        {
+            //get walk from the repository based on its ID
+            Walk walkToUpdate = _dogWalkDatabaseEntities.Walks.FirstOrDefault(m => m.ID == walk.ID);
+
+            if (walkToUpdate != null)
+            {
+                WalkStatu walkStatus = walkToUpdate.WalkStatu;
+
+                //update database properties
+                walkToUpdate.WalkStatu = walkStatus;
+
+                _dogWalkDatabaseEntities.SaveChanges();
+            }
+
+        }
+
+        public void ScheduleWalks() { }
+
+        public void PayWalks() { }
     }
 }
