@@ -28,12 +28,14 @@ namespace DogWalk.Data.Repositories
             return dbWalk.ID;
         }
 
-        public IEnumerable<WalkModel>GetWalk()
+        public IEnumerable<WalkModel>GetWalks()
         {
             //create a list of walks from the database and save them as a variable
             var walks = _dogWalkDatabaseEntities.Walks
                                         //name of related property in entity
                                         .Include("WalkStatus")
+                                        .Include("Payment")
+                                        .Include("Walker")
                                         .AsEnumerable();
 
             List<WalkModel> walksForController = new List<WalkModel>();
@@ -41,8 +43,7 @@ namespace DogWalk.Data.Repositories
             foreach(Walk walk in walks)
             {
                 //convert WalkStatus to WalkStatusModel
-                WalkStatu walkstatus = walk.WalkStatu;
-                //convert it here
+                WalkStatu walkstatus = walk.WalkStatu;  
                 WalkStatusModel walkStatusModel = new WalkStatusModel(walkstatus.ID, walkstatus.Status, walkstatus.Explanation);
                 
                 Walker walker = walk.Walker;
@@ -65,6 +66,44 @@ namespace DogWalk.Data.Repositories
             }
 
             return walksForController;
+        }
+
+        public WalkModel GetWalks(int id)
+        {
+            //get walk from the db
+            Walk walk = _dogWalkDatabaseEntities.Walks
+                                                .Include("Payment")
+                                                .Include("Walker")
+                                                .Include("WalkStatu")
+                                                .FirstOrDefault(m => m.ID == id);
+            if (walk != null)
+            {
+                //load walkstatu, walker and payment models
+                WalkStatu walkStatus = walk.WalkStatu;
+                WalkStatusModel walkStatusModel = new WalkStatusModel(walkStatus.ID, walkStatus.Status, walkStatus.Explanation);
+
+                Walker walker = walk.Walker;
+                WalkerModel walkerModel = new WalkerModel(walker.ID, walker.Name, walker.Phone, walker.Email);
+
+                PaymentType paymentType = walk.Payment.PaymentType;
+                PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
+
+                PaymentStatu paymentStatus = walk.Payment.PaymentStatu;
+                PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatus.ID, paymentStatus.Status, paymentStatus.Explanation);
+
+                Payment payment = walk.Payment;
+                PaymentModel paymentModel = new PaymentModel(payment.ID, paymentStatusModel, payment.Amount, payment.DatePaid, paymentTypeModel);
+                
+
+                //convert walk to WalkModel for the controller to use
+                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, paymentModel);
+
+                return walkModel;   
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
