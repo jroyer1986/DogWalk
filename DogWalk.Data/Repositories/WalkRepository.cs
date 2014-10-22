@@ -33,7 +33,7 @@ namespace DogWalk.Data.Repositories
             //create a list of walks from the database and save them as a variable
             var walks = _dogWalkDatabaseEntities.Walks
                                         //name of related property in entity
-                                        .Include("WalkStatu")
+                                        .Include("WalkStatus")
                                         .AsEnumerable();
 
             List<WalkModel> walksForController = new List<WalkModel>();
@@ -41,7 +41,7 @@ namespace DogWalk.Data.Repositories
             foreach(Walk walk in walks)
             {
                 //convert WalkStatus to WalkStatusModel
-                WalkStatu walkstatu = walk.WalkStatu;
+                WalkStatus walkstatus = walk.WalkStatus;
                 //convert it here
                 //WalkStatusModel model = ?????
 
