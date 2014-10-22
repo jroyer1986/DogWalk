@@ -48,65 +48,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ContactMethod.cs">
+    <Compile Include="Repositories\ContactMethod.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DogWalkDatabase.Context.cs">
+    <Compile Include="Repositories\DogWalkDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DogWalkDatabase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DogWalkDatabase.cs">
+    <Compile Include="Repositories\DogWalkDatabase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DogWalkDatabase.Designer.cs">
+    <Compile Include="Repositories\DogWalkDatabase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DogWalkDatabase.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Message.cs">
+    <Compile Include="Repositories\Message.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Payment.cs">
+    <Compile Include="Repositories\Payment.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="PaymentStatu.cs">
+    <Compile Include="Repositories\PaymentStatu.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="PaymentType.cs">
+    <Compile Include="Repositories\PaymentType.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Walk.cs">
+    <Compile Include="Repositories\Walk.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Walker.cs">
+    <Compile Include="Repositories\Walker.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="WalkStatu.cs">
+    <Compile Include="Repositories\WalkRepository.cs" />
+    <Compile Include="Repositories\WalkStatu.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="DogWalkDatabase.edmx">
+    <EntityDeploy Include="Repositories\DogWalkDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DogWalkDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="DogWalkDatabase.Context.tt">
+    <None Include="Repositories\DogWalkDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DogWalkDatabase.edmx</DependentUpon>
       <LastGenOutput>DogWalkDatabase.Context.cs</LastGenOutput>
     </None>
-    <None Include="DogWalkDatabase.edmx.diagram">
+    <None Include="Repositories\DogWalkDatabase.edmx.diagram">
       <DependentUpon>DogWalkDatabase.edmx</DependentUpon>
     </None>
-    <None Include="DogWalkDatabase.tt">
+    <None Include="Repositories\DogWalkDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DogWalkDatabase.edmx</DependentUpon>
       <LastGenOutput>DogWalkDatabase.cs</LastGenOutput>
