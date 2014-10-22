@@ -40,13 +40,31 @@ namespace DogWalk.Data.Repositories
 
             foreach(Walk walk in walks)
             {
-                //convert WalkStatus to WalkStatusModel
+                //WALKSTATUSMODEL
                 WalkStatu walkstatu = walk.WalkStatu;
                 //convert it here
-                //WalkStatusModel model = ?????
+                WalkStatusModel walkStatusModel = new WalkStatusModel(){
+                        ID = walkstatu.ID,
+                         Explanation = walkstatu.Explanation,
+                          Status = walkstatu.Status
+                };
+                //WALKERMODEL
+                Walker walker = walk.Walker;
+                WalkerModel walkerModel = new WalkerModel(){
+                    ID = walker.ID,
+                    Name = walker.Name,
+                    Phone = walker.Phone,
+                    Email = walker.Email
+                };
+           
+                //Payment Model
+                Payment payment = null; //should equal walk.Payment, but you havent mapped this in repo
+
+                //PaymentModel
+                PaymentModel paymentModel = null; //should be a new paymentModel
 
                 //convert walk from database type to model for controller to use
-                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walk.WalkStatus.ID, walk.Walker.ID, walk.PaymentID, walk.
+                WalkModel walkModel = new WalkModel(walk.ID, walk.DateOfWalk, walkStatusModel, walkerModel, paymentModel);
             }
         }
     }
