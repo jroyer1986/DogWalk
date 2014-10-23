@@ -11,13 +11,14 @@
         <EntityTypeShape EntityType="DogWalkModel.PaymentType" Width="1.5" PointX="2.75" PointY="5.25" />
         <EntityTypeShape EntityType="DogWalkModel.Walk" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="DogWalkModel.Walker" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="DogWalkModel.WalkStatu" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="DogWalkModel.WalkStatus" Width="1.5" PointX="0.75" PointY="5.25" />
         <AssociationConnector Association="DogWalkModel.FK_Payment_PaymentStatus" />
         <AssociationConnector Association="DogWalkModel.FK_Payment_PaymentType" />
         <AssociationConnector Association="DogWalkModel.FK_Walk_Walker" />
         <AssociationConnector Association="DogWalkModel.FK_Walk_WalkStatus" />
         <EntityTypeShape EntityType="DogWalkModel.ContactMethod" Width="1.5" PointX="7.375" PointY="3.75" />
         <AssociationConnector Association="DogWalkModel.FK_Message_ContactMethod" />
+        <AssociationConnector Association="DogWalkModel.FK_Walk_Payment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

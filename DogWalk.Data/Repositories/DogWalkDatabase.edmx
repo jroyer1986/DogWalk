@@ -111,6 +111,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Walk_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Walk_Walker">
           <End Role="Walker" Type="Self.Walker" Multiplicity="0..1" />
           <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
@@ -156,6 +168,10 @@
             <End Role="PaymentType" EntitySet="PaymentType" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Walk_Payment" Association="Self.FK_Walk_Payment">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="Walk" EntitySet="Walk" />
+          </AssociationSet>
           <AssociationSet Name="FK_Walk_Walker" Association="Self.FK_Walk_Walker">
             <End Role="Walker" EntitySet="Walker" />
             <End Role="Walk" EntitySet="Walk" />
@@ -198,6 +214,10 @@
             <End Role="ContactMethod" EntitySet="ContactMethods" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <AssociationSet Name="FK_Walk_Payment" Association="DogWalkModel.FK_Walk_Payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Message">
           <Key>
@@ -221,6 +241,7 @@
           <Property Name="PaymentTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PaymentStatu" Relationship="DogWalkModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatu" />
           <NavigationProperty Name="PaymentType" Relationship="DogWalkModel.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
+          <NavigationProperty Name="Walk" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Payment" ToRole="Walk" />
         </EntityType>
         <EntityType Name="PaymentStatu">
           <Key>
@@ -251,6 +272,7 @@
           <Property Name="DateOfWalk" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Walker" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walk" ToRole="Walker" />
           <NavigationProperty Name="WalkStatu" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="Walk" ToRole="WalkStatu" />
+          <NavigationProperty Name="Payment" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Walk" ToRole="Payment" />
         </EntityType>
         <EntityType Name="Walker">
           <Key>
@@ -336,6 +358,18 @@
             </Principal>
             <Dependent Role="Message">
               <PropertyRef Name="ContactMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Payment">
+          <End Type="DogWalkModel.Payment" Role="Payment" Multiplicity="0..1" />
+          <End Type="DogWalkModel.Walk" Role="Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="PaymentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -437,7 +471,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
