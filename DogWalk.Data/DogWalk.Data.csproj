@@ -79,6 +79,7 @@
     <Compile Include="Repositories\Payment.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\PaymentStatus.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
