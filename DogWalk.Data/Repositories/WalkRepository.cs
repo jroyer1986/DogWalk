@@ -121,7 +121,7 @@ namespace DogWalk.Data.Repositories
 
         }
 
-        public List<DateTime> ScheduleWalks(DateTime startDate, DateTime endDate, List<DayOfWeek>daysToCheck)
+        public List<DateTime> ScheduleWalks(DateTime startDate, DateTime endDate, List<DayOfWeek>daysToCheck, WalkModel walk)
         {
             var listOfWalkDates = new List<DateTime>();
 
@@ -149,7 +149,19 @@ namespace DogWalk.Data.Repositories
 
                 //add those selected dates to a new list of dates to schedule
                 listOfWalkDates = selectedDatesQry.ToList();
+
+                //create a new Walk for each walkdate in listOfWalkDates
+                if(listOfWalkDates != null)
+                {
+                    foreach(DateTime walkDate in listOfWalkDates)
+                    {
+                        walk.DateOfWalk = walkDate;
+                        CreateWalk(walk);
+                    }                  
+                       
+                }
             }
+            
             catch (Exception ex)
             {
                 throw;
