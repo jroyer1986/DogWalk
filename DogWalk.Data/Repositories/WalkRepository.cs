@@ -13,6 +13,8 @@ namespace DogWalk.Data.Repositories
         //Create an instance of the repository
         DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
 
+        private static decimal costPerWalk = 23;
+
         public int CreateWalk(WalkModel newWalk)
         {
             //convert walkmodel to a walk for the database
@@ -43,7 +45,7 @@ namespace DogWalk.Data.Repositories
             foreach(Walk walk in walks)
             {
                 //convert WalkStatus to WalkStatusModel
-                WalkStatu walkstatus = walk.WalkStatu;  
+                WalkStatus walkstatus = walk.WalkStatus;  
                 WalkStatusModel walkStatusModel = new WalkStatusModel(walkstatus.ID, walkstatus.Status, walkstatus.Explanation);
                 
                 Walker walker = walk.Walker;
@@ -52,7 +54,7 @@ namespace DogWalk.Data.Repositories
                 PaymentType paymentType = walk.Payment.PaymentType;
                 PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
 
-                PaymentStatu paymentStatu = walk.Payment.PaymentStatu;
+                PaymentStatus paymentStatu = walk.Payment.PaymentStatus;
                 PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatu.ID, paymentStatu.Status, paymentStatu.Explanation);
 
                 Payment payment = walk.Payment;
@@ -79,7 +81,7 @@ namespace DogWalk.Data.Repositories
             if (walk != null)
             {
                 //load walkstatu, walker and payment models
-                WalkStatu walkStatus = walk.WalkStatu;
+                WalkStatus walkStatus = walk.WalkStatus;
                 WalkStatusModel walkStatusModel = new WalkStatusModel(walkStatus.ID, walkStatus.Status, walkStatus.Explanation);
 
                 Walker walker = walk.Walker;
@@ -88,7 +90,7 @@ namespace DogWalk.Data.Repositories
                 PaymentType paymentType = walk.Payment.PaymentType;
                 PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
 
-                PaymentStatu paymentStatus = walk.Payment.PaymentStatu;
+                PaymentStatus paymentStatus = walk.Payment.PaymentStatus;
                 PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatus.ID, paymentStatus.Status, paymentStatus.Explanation);
 
                 Payment payment = walk.Payment;
@@ -113,18 +115,33 @@ namespace DogWalk.Data.Repositories
 
             if (walkToUpdate != null)
             {
-                WalkStatu walkStatus = walkToUpdate.WalkStatu;
-
-                //update database properties
-                walkToUpdate.WalkStatu = walkStatus;
-
+                walkToUpdate.WalkStatusID = walk.Status.ID;              
                 _dogWalkDatabaseEntities.SaveChanges();
             }
 
         }
 
-        public void ScheduleWalks() { }
+        public void ScheduleWalks()
+        {
 
-        public void PayWalks() { }
+        }
+
+        public void PayWalks(IEnumerable<WalkModel> walks)
+        {            
+            foreach (WalkModel walk in walks)
+            {
+                Walk walkToPay = _dogWalkDatabaseEntities.Walks.FirstOrDefault(m => m.ID == walk.ID);
+
+                if (walkToPay != null)
+                {
+                    walkToPay.PaymentID = walk.Payment.ID;
+
+                    _dogWalkDatabaseEntities.SaveChanges();
+                }
+
+            }
+
+
+        }
     }
 }
