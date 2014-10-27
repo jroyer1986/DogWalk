@@ -14,13 +14,19 @@ namespace DogWalk.Data.Repositories
     
     public partial class Payment
     {
+        public Payment()
+        {
+            this.Walk = new HashSet<Walk>();
+        }
+    
         public int ID { get; set; }
         public int PaymentStatusID { get; set; }
         public decimal Amount { get; set; }
         public System.DateTime DatePaid { get; set; }
         public int PaymentTypeID { get; set; }
     
-        public virtual PaymentStatu PaymentStatu { get; set; }
+        public virtual PaymentStatus PaymentStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }
+        public virtual ICollection<Walk> Walk { get; set; }
     }
 }

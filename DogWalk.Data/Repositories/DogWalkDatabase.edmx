@@ -188,11 +188,11 @@
         <EntityContainer Name="DogWalkDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Messages" EntityType="DogWalkModel.Message" />
           <EntitySet Name="Payments" EntityType="DogWalkModel.Payment" />
-          <EntitySet Name="PaymentStatus" EntityType="DogWalkModel.PaymentStatu" />
+          <EntitySet Name="PaymentStatus" EntityType="DogWalkModel.PaymentStatus" />
           <EntitySet Name="PaymentTypes" EntityType="DogWalkModel.PaymentType" />
           <EntitySet Name="Walks" EntityType="DogWalkModel.Walk" />
           <EntitySet Name="Walkers" EntityType="DogWalkModel.Walker" />
-          <EntitySet Name="WalkStatus" EntityType="DogWalkModel.WalkStatu" />
+          <EntitySet Name="WalkStatus" EntityType="DogWalkModel.WalkStatus" />
           <AssociationSet Name="FK_Payment_PaymentStatus" Association="DogWalkModel.FK_Payment_PaymentStatus">
             <End Role="PaymentStatu" EntitySet="PaymentStatus" />
             <End Role="Payment" EntitySet="Payments" />
@@ -239,11 +239,11 @@
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="DatePaid" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PaymentTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentStatu" Relationship="DogWalkModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatu" />
+          <NavigationProperty Name="PaymentStatus" Relationship="DogWalkModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatu" />
           <NavigationProperty Name="PaymentType" Relationship="DogWalkModel.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
           <NavigationProperty Name="Walk" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Payment" ToRole="Walk" />
         </EntityType>
-        <EntityType Name="PaymentStatu">
+        <EntityType Name="PaymentStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -271,7 +271,7 @@
           <Property Name="PaymentID" Type="Int32" />
           <Property Name="DateOfWalk" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Walker" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walk" ToRole="Walker" />
-          <NavigationProperty Name="WalkStatu" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="Walk" ToRole="WalkStatu" />
+          <NavigationProperty Name="WalkStatus" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="Walk" ToRole="WalkStatu" />
           <NavigationProperty Name="Payment" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Walk" ToRole="Payment" />
         </EntityType>
         <EntityType Name="Walker">
@@ -284,7 +284,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Walks" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walker" ToRole="Walk" />
         </EntityType>
-        <EntityType Name="WalkStatu">
+        <EntityType Name="WalkStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -294,7 +294,7 @@
           <NavigationProperty Name="Walks" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="WalkStatu" ToRole="Walk" />
         </EntityType>
         <Association Name="FK_Payment_PaymentStatus">
-          <End Type="DogWalkModel.PaymentStatu" Role="PaymentStatu" Multiplicity="1" />
+          <End Type="DogWalkModel.PaymentStatus" Role="PaymentStatu" Multiplicity="1" />
           <End Type="DogWalkModel.Payment" Role="Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentStatu">
@@ -330,7 +330,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Walk_WalkStatus">
-          <End Type="DogWalkModel.WalkStatu" Role="WalkStatu" Multiplicity="1" />
+          <End Type="DogWalkModel.WalkStatus" Role="WalkStatu" Multiplicity="1" />
           <End Type="DogWalkModel.Walk" Role="Walk" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WalkStatu">
@@ -402,7 +402,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentStatus">
-            <EntityTypeMapping TypeName="DogWalkModel.PaymentStatu">
+            <EntityTypeMapping TypeName="DogWalkModel.PaymentStatus">
               <MappingFragment StoreEntitySet="PaymentStatus">
                 <ScalarProperty Name="Explanation" ColumnName="Explanation" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -441,7 +441,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WalkStatus">
-            <EntityTypeMapping TypeName="DogWalkModel.WalkStatu">
+            <EntityTypeMapping TypeName="DogWalkModel.WalkStatus">
               <MappingFragment StoreEntitySet="WalkStatus">
                 <ScalarProperty Name="Explanation" ColumnName="Explanation" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

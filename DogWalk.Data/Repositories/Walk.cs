@@ -21,6 +21,7 @@ namespace DogWalk.Data.Repositories
         public System.DateTime DateOfWalk { get; set; }
     
         public virtual Walker Walker { get; set; }
-        public virtual WalkStatu WalkStatu { get; set; }
+        public virtual WalkStatus WalkStatus { get; set; }
+        public virtual Payment Payment { get; set; }
     }
 }

@@ -27,11 +27,11 @@ namespace DogWalk.Data.Repositories
     
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<PaymentStatu> PaymentStatus { get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatus { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Walk> Walks { get; set; }
         public virtual DbSet<Walker> Walkers { get; set; }
-        public virtual DbSet<WalkStatu> WalkStatus { get; set; }
+        public virtual DbSet<WalkStatus> WalkStatus { get; set; }
         public virtual DbSet<ContactMethod> ContactMethods { get; set; }
     }
 }

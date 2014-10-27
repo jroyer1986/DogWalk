@@ -12,9 +12,9 @@ namespace DogWalk.Data.Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentStatu
+    public partial class PaymentStatus
     {
-        public PaymentStatu()
+        public PaymentStatus()
         {
             this.Payments = new HashSet<Payment>();
         }
