@@ -70,7 +70,7 @@ namespace DogWalk.Data.Repositories
             return walksForController;
         }
 
-        public WalkModel GetWalks(int id)
+        public WalkModel GetWalk(int id)
         {
             //get walk from the db
             Walk walk = _dogWalkDatabaseEntities.Walks

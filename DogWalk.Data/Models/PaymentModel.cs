@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DogWalk.Data.Repositories;
 
 namespace DogWalk.Data.Models
 {
@@ -30,6 +31,23 @@ namespace DogWalk.Data.Models
         }
 
         public PaymentModel() { }
+
+        public PaymentModel(Payment payment)
+        {
+            //convert paymentStatus and paymentType
+                PaymentStatus paymentStatus = payment.PaymentStatus;
+                PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatus.ID, paymentStatus.Status, paymentStatus.Explanation);
+
+                PaymentType paymentType = payment.PaymentType;
+                PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
+
+                //convert payment to paymentModel for controller to use              
+                ID = payment.ID;
+                PaymentStatus = paymentStatusModel;
+                Amount = payment.Amount;
+                DatePaid = payment.DatePaid;
+                PaymentType = paymentTypeModel;
+        }
 
         #endregion
     }

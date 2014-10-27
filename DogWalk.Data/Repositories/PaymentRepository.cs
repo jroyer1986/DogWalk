@@ -20,12 +20,14 @@ namespace DogWalk.Data.Repositories
             var listOfDaysToPay = _dogWalkDatabaseEntities.Walks.Where(d => d.DateOfWalk >= dateStart && d.DateOfWalk <= dateEnd)
                                                                 .Where(p => p.Payment.PaymentStatus.Status != "paid");
 
-            Payment newPayment = new Payment()
-            {
-                
-            }
+            Payment newPayment = new Payment();
             
-
+            newPayment.Amount = payment.Amount;
+            newPayment.DatePaid = payment.DatePaid;
+            newPayment.PaymentStatusID = payment.PaymentStatus.ID;
+            newPayment.PaymentTypeID = payment.PaymentType.ID;
+            _dogWalkDatabaseEntities.Payments.Add(newPayment);
+            _dogWalkDatabaseEntities.SaveChanges();
 
             foreach(Walk walk in listOfDaysToPay)
                 if(walk != null)
@@ -33,9 +35,7 @@ namespace DogWalk.Data.Repositories
                     walk.PaymentID = payment.ID;
                     _dogWalkDatabaseEntities.SaveChanges();
                 }
-
-
-
+            
         }
 
         public void CancelPayment(PaymentModel payment)
@@ -66,22 +66,43 @@ namespace DogWalk.Data.Repositories
 
             if(payment != null)
             {
-                //convert paymentStatus and paymentType
-                PaymentStatus paymentStatus = payment.PaymentStatus;
-                PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatus.ID, paymentStatus.Status, paymentStatus.Explanation);
+                ////convert paymentStatus and paymentType
+                //PaymentStatus paymentStatus = payment.PaymentStatus;
+                //PaymentStatusModel paymentStatusModel = new PaymentStatusModel(paymentStatus.ID, paymentStatus.Status, paymentStatus.Explanation);
 
-                PaymentType paymentType = payment.PaymentType;
-                PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
+                //PaymentType paymentType = payment.PaymentType;
+                //PaymentTypeModel paymentTypeModel = new PaymentTypeModel(paymentType.ID, paymentType.PaymentType1, paymentType.Explanation);
 
                 //convert payment to paymentModel for controller to use
-                PaymentModel paymentModel = new PaymentModel(payment.ID, paymentStatusModel, payment.Amount, payment.DatePaid, paymentTypeModel);
+                PaymentModel paymentModel = new PaymentModel(payment);
                 return paymentModel;
             }
             else
             { return null; }
         }
 
-        public void SearchPayments() { }
+        public IEnumerable<PaymentModel> SearchPayments(string paymentType, string paymentStatus, DateTime dateStart, DateTime dateEnd)
+        {
+            var paymentList = _dogWalkDatabaseEntities.Payments.AsQueryable();
+            if(paymentType != null)
+            {
+                paymentList = paymentList.Where(p => p.PaymentType.PaymentType1.Contains(paymentType));
+            }
+            if(paymentStatus !=null)
+            {
+                paymentList = paymentList.Where(p => p.PaymentStatus.Status.Contains(paymentStatus));
+            }
+            if(dateEnd >= dateStart && dateEnd != null && dateEnd != null)
+            {
+                paymentList = paymentList.Where(d => d.DatePaid >= dateStart && d.DatePaid <= dateEnd);
+            }
+            if(paymentList == null)
+            {
+                return null;
+            }
+            return paymentList.Select(m => new PaymentModel(m));
+            
+        }
 
     }
 }
