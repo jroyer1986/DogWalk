@@ -121,9 +121,40 @@ namespace DogWalk.Data.Repositories
 
         }
 
-        public void ScheduleWalks()
+        public List<DateTime> ScheduleWalks(DateTime startDate, DateTime endDate, List<DayOfWeek>daysToCheck)
         {
+            var listOfWalkDates = new List<DateTime>();
 
+            if (startDate >= endDate)
+                return listOfWalkDates;
+
+            if (daysToCheck == null || daysToCheck.Count == 0)
+                return listOfWalkDates;
+
+            try
+            {
+                //get the total number of days between the 2 given dates
+                var totalDays = (int)endDate.Subtract(startDate).TotalDays;
+                               
+                //create a list of the dates between the given dates
+                var allDatesQry = from d in Enumerable.Range(1, totalDays)
+                                  select new DateTime(startDate.AddDays(d).Year,
+                                  startDate.AddDays(d).Month,
+                                  startDate.AddDays(d).Day);                
+
+                //extract the days of the week we specifically requested
+                var selectedDatesQry = from d in allDatesQry
+                                       where daysToCheck.Contains(d.DayOfWeek)
+                                       select d;
+
+                //add those selected dates to a new list of dates to schedule
+                listOfWalkDates = selectedDatesQry.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+                return listOfWalkDates;
         }
 
         public void PayWalks(IEnumerable<WalkModel> walks)
