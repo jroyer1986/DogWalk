@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace DogWalk.Data.Repositories
 {
-    class WalkerRepository
+    public class WalkerRepository
     {
         DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+
 
         public WalkerModel GetWalkerByID(int id)
         {
@@ -27,7 +28,7 @@ namespace DogWalk.Data.Repositories
             
         }
 
-        public IEnumerable<WalkerModel> GetWalkers(string name, string phone, string email)
+        public IEnumerable<WalkerModel> GetWalkers(string name = null, string phone = null, string email = null)
         {
             //get list of walkers from database based on paramaters passed
             var listOfWalkers = _dogWalkDatabaseEntities.Walkers.AsQueryable();
@@ -55,7 +56,7 @@ namespace DogWalk.Data.Repositories
                 listOfWalkerModels.Add(walkerModel);
             }
             return listOfWalkerModels;
-        }
+        }        
 
         public int CreateWalker(WalkerModel walker)
         {

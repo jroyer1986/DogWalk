@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\WalkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -102,8 +103,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="View Models\" />
+    <Folder Include="Views\Walker\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DogWalk.Data\DogWalk.Data.csproj">
+      <Project>{ea7a2358-f4b3-4734-b15a-48d1e5986460}</Project>
+      <Name>DogWalk.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
