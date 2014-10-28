@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Enums\DayOfWeek.cs" />
+    <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Repositories\ContactMethod.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
@@ -76,6 +77,7 @@
     <Compile Include="Models\WalkerModel.cs" />
     <Compile Include="Models\WalkModel.cs" />
     <Compile Include="Models\WalkStatusModel.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\Payment.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
