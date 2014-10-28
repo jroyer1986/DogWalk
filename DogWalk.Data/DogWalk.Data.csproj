@@ -87,6 +87,7 @@
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\WalkerRepository.cs" />
     <Compile Include="Repositories\WalkRepository.cs" />
     <Compile Include="Repositories\Walk.cs">
       <DependentUpon>DogWalkDatabase.tt</DependentUpon>

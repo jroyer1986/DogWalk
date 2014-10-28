@@ -70,11 +70,32 @@ namespace DogWalk.Data.Repositories
             return dbwalker.ID;
         }
 
-        public void UpdateWalker()
+        public void UpdateWalker(WalkerModel walker)
         {
+            //get walker from repository based on its ID
+            Walker dbwalker = _dogWalkDatabaseEntities.Walkers.FirstOrDefault(m => m.ID == walker.ID);
 
+            if (dbwalker != null)
+            {
+                //update walker information and save to repository
+                dbwalker.Name = walker.Name;
+                dbwalker.Phone = walker.Phone;
+                dbwalker.Email = walker.Email;
+
+                _dogWalkDatabaseEntities.SaveChanges();
+            }
         }
 
-        public void DeleteWalker() { }
+        public void DeleteWalker(int id)
+        {
+            //find walker in database based on its id and remove from list
+            Walker walkerToDelete = _dogWalkDatabaseEntities.Walkers.FirstOrDefault(m => m.ID == id);
+
+            if (walkerToDelete != null)
+            {
+                _dogWalkDatabaseEntities.Walkers.Remove(walkerToDelete);
+                _dogWalkDatabaseEntities.SaveChanges();
+            }
+        }
     }
 }
