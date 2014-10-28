@@ -65,5 +65,11 @@ namespace DogWalk.Controllers
             _walkerRepository.UpdateWalker(updatedWalker);
             return RedirectToAction("ViewWalker", new { id = updatedWalker.ID });
         }
+
+        public ActionResult Delete(int id)
+        {
+            _walkerRepository.DeleteWalker(id);
+            return RedirectToAction("ViewWalkerList");            
+        }
     }
 }
