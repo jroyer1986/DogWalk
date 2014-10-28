@@ -33,10 +33,16 @@ namespace DogWalk.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult View()
+        public ActionResult ViewWalkerList()
         {
             IEnumerable<WalkerModel> walkerList = _walkerRepository.GetWalkers();
             return View(walkerList);
+        }
+
+        public ActionResult ViewWalker(int id)
+        {
+            _walkerRepository.GetWalkerByID(id);
+            return View();
         }
 
         [HttpGet]
@@ -57,7 +63,7 @@ namespace DogWalk.Controllers
         public ActionResult Update(WalkerModel updatedWalker)
         {
             _walkerRepository.UpdateWalker(updatedWalker);
-            return RedirectToAction("WalkerDetails", new { id = updatedWalker.ID });
+            return RedirectToAction("ViewWalker", new { id = updatedWalker.ID });
         }
     }
 }
