@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="DogWalkModel.ContactMethod" Width="1.5" PointX="7.375" PointY="3.75" />
         <AssociationConnector Association="DogWalkModel.FK_Message_ContactMethod" />
         <AssociationConnector Association="DogWalkModel.FK_Walk_Payment" />
+        <AssociationConnector Association="DogWalkModel.FK_Message_Walker" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

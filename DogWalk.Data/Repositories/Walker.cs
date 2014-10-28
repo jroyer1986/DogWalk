@@ -17,6 +17,7 @@ namespace DogWalk.Data.Repositories
         public Walker()
         {
             this.Walks = new HashSet<Walk>();
+            this.Message = new HashSet<Message>();
         }
     
         public int ID { get; set; }
@@ -25,5 +26,6 @@ namespace DogWalk.Data.Repositories
         public string Email { get; set; }
     
         public virtual ICollection<Walk> Walks { get; set; }
+        public virtual ICollection<Message> Message { get; set; }
     }
 }

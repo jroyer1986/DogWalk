@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enums\ContactMethod.cs" />
     <Compile Include="Models\Enums\DayOfWeek.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Repositories\ContactMethod.cs">

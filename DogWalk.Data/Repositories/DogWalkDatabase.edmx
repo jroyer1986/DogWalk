@@ -87,6 +87,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Message_Walker">
+          <End Role="Walker" Type="Self.Walker" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payment_PaymentStatus">
           <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
@@ -160,6 +172,10 @@
             <End Role="ContactMethod" EntitySet="ContactMethod" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
+          <AssociationSet Name="FK_Message_Walker" Association="Self.FK_Message_Walker">
+            <End Role="Walker" EntitySet="Walker" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payment_PaymentStatus" Association="Self.FK_Payment_PaymentStatus">
             <End Role="PaymentStatus" EntitySet="PaymentStatus" />
             <End Role="Payment" EntitySet="Payment" />
@@ -218,6 +234,10 @@
             <End Role="Payment" EntitySet="Payments" />
             <End Role="Walk" EntitySet="Walks" />
           </AssociationSet>
+          <AssociationSet Name="FK_Message_Walker" Association="DogWalkModel.FK_Message_Walker">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Message">
           <Key>
@@ -229,6 +249,7 @@
           <Property Name="DateSent" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ContactMethodID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ContactMethod" Relationship="DogWalkModel.FK_Message_ContactMethod" FromRole="Message" ToRole="ContactMethod" />
+          <NavigationProperty Name="Walker" Relationship="DogWalkModel.FK_Message_Walker" FromRole="Message" ToRole="Walker" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -283,6 +304,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Walks" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walker" ToRole="Walk" />
+          <NavigationProperty Name="Message" Relationship="DogWalkModel.FK_Message_Walker" FromRole="Walker" ToRole="Message" />
         </EntityType>
         <EntityType Name="WalkStatus">
           <Key>
@@ -370,6 +392,18 @@
             </Principal>
             <Dependent Role="Walk">
               <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Walker">
+          <End Type="DogWalkModel.Walker" Role="Walker" Multiplicity="1" />
+          <End Type="DogWalkModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="WalkerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

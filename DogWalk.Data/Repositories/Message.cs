@@ -21,5 +21,6 @@ namespace DogWalk.Data.Repositories
         public int ContactMethodID { get; set; }
     
         public virtual ContactMethod ContactMethod { get; set; }
+        public virtual Walker Walker { get; set; }
     }
 }
