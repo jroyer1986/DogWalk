@@ -54,7 +54,24 @@ namespace DogWalk.Data.Repositories
             
         }
 
-        public void SendPayment() { }
+        public void SendPayment(PaymentModel payment)
+        {
+            //mark walk as paid.  Send money if paid electronically
+
+            //get payment by ID
+            Payment dbPayment = _dogWalkDatabaseEntities.Payments.FirstOrDefault(m => m.ID == payment.ID);
+                        
+            //change payment status to paid
+            if(dbPayment != null)
+            {
+                var payPayment = _dogWalkDatabaseEntities.PaymentStatus.FirstOrDefault(m => m.Status == "Paid");
+
+                dbPayment.PaymentStatusID = payPayment.ID;
+                _dogWalkDatabaseEntities.SaveChanges();
+            }
+            
+            //send electronic money
+        }
 
         public PaymentModel GetPayment(int id)
         {
