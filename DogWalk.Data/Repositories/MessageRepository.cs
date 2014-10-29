@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using DogWalk.Data.Entities;
 namespace DogWalk.Data.Repositories
 {
     class MessageRepository
     {
-        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
         public void SendMessage(MessageModel message)
         {

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DogWalkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DogWalkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ContactMethod">
           <Key>
             <PropertyRef Name="ID" />
@@ -197,59 +197,30 @@
             <End Role="Walk" EntitySet="Walk" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DogWalkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="DogWalkDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Messages" EntityType="DogWalkModel.Message" />
-          <EntitySet Name="Payments" EntityType="DogWalkModel.Payment" />
-          <EntitySet Name="PaymentStatus" EntityType="DogWalkModel.PaymentStatus" />
-          <EntitySet Name="PaymentTypes" EntityType="DogWalkModel.PaymentType" />
-          <EntitySet Name="Walks" EntityType="DogWalkModel.Walk" />
-          <EntitySet Name="Walkers" EntityType="DogWalkModel.Walker" />
-          <EntitySet Name="WalkStatus" EntityType="DogWalkModel.WalkStatus" />
-          <AssociationSet Name="FK_Payment_PaymentStatus" Association="DogWalkModel.FK_Payment_PaymentStatus">
-            <End Role="PaymentStatu" EntitySet="PaymentStatus" />
-            <End Role="Payment" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Payment_PaymentType" Association="DogWalkModel.FK_Payment_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentTypes" />
-            <End Role="Payment" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Walk_Walker" Association="DogWalkModel.FK_Walk_Walker">
-            <End Role="Walker" EntitySet="Walkers" />
-            <End Role="Walk" EntitySet="Walks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Walk_WalkStatus" Association="DogWalkModel.FK_Walk_WalkStatus">
-            <End Role="WalkStatu" EntitySet="WalkStatus" />
-            <End Role="Walk" EntitySet="Walks" />
-          </AssociationSet>
-          <EntitySet Name="ContactMethods" EntityType="DogWalkModel.ContactMethod" />
-          <AssociationSet Name="FK_Message_ContactMethod" Association="DogWalkModel.FK_Message_ContactMethod">
-            <End Role="ContactMethod" EntitySet="ContactMethods" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Walk_Payment" Association="DogWalkModel.FK_Walk_Payment">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="Walk" EntitySet="Walks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Message_Walker" Association="DogWalkModel.FK_Message_Walker">
-            <End Role="Walker" EntitySet="Walkers" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="ContactMethod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactMethodType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Message_ContactMethod" FromRole="ContactMethod" ToRole="Message" />
+        </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WalkerID" Type="Int32" Nullable="false" />
-          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateSent" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ContactMethodID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ContactMethod" Relationship="DogWalkModel.FK_Message_ContactMethod" FromRole="Message" ToRole="ContactMethod" />
-          <NavigationProperty Name="Walker" Relationship="DogWalkModel.FK_Message_Walker" FromRole="Message" ToRole="Walker" />
+          <NavigationProperty Name="ContactMethod" Relationship="Self.FK_Message_ContactMethod" FromRole="Message" ToRole="ContactMethod" />
+          <NavigationProperty Name="Walker" Relationship="Self.FK_Message_Walker" FromRole="Message" ToRole="Walker" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -257,30 +228,30 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentStatusID" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DatePaid" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PaymentTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentStatus" Relationship="DogWalkModel.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatu" />
-          <NavigationProperty Name="PaymentType" Relationship="DogWalkModel.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
-          <NavigationProperty Name="Walk" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Payment" ToRole="Walk" />
+          <NavigationProperty Name="PaymentStatus" Relationship="Self.FK_Payment_PaymentStatus" FromRole="Payment" ToRole="PaymentStatus" />
+          <NavigationProperty Name="PaymentType" Relationship="Self.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
+          <NavigationProperty Name="Walks" Relationship="Self.FK_Walk_Payment" FromRole="Payment" ToRole="Walk" />
         </EntityType>
         <EntityType Name="PaymentStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Explanation" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Payments" Relationship="DogWalkModel.FK_Payment_PaymentStatus" FromRole="PaymentStatu" ToRole="Payment" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_PaymentStatus" FromRole="PaymentStatus" ToRole="Payment" />
         </EntityType>
         <EntityType Name="PaymentType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Explanation" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Payments" Relationship="DogWalkModel.FK_Payment_PaymentType" FromRole="PaymentType" ToRole="Payment" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_PaymentType" FromRole="PaymentType" ToRole="Payment" />
         </EntityType>
         <EntityType Name="Walk">
           <Key>
@@ -291,35 +262,59 @@
           <Property Name="WalkerID" Type="Int32" />
           <Property Name="PaymentID" Type="Int32" />
           <Property Name="DateOfWalk" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Walker" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walk" ToRole="Walker" />
-          <NavigationProperty Name="WalkStatus" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="Walk" ToRole="WalkStatu" />
-          <NavigationProperty Name="Payment" Relationship="DogWalkModel.FK_Walk_Payment" FromRole="Walk" ToRole="Payment" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK_Walk_Payment" FromRole="Walk" ToRole="Payment" />
+          <NavigationProperty Name="Walker" Relationship="Self.FK_Walk_Walker" FromRole="Walk" ToRole="Walker" />
+          <NavigationProperty Name="WalkStatus" Relationship="Self.FK_Walk_WalkStatus" FromRole="Walk" ToRole="WalkStatus" />
         </EntityType>
         <EntityType Name="Walker">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Walks" Relationship="DogWalkModel.FK_Walk_Walker" FromRole="Walker" ToRole="Walk" />
-          <NavigationProperty Name="Message" Relationship="DogWalkModel.FK_Message_Walker" FromRole="Walker" ToRole="Message" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Message_Walker" FromRole="Walker" ToRole="Message" />
+          <NavigationProperty Name="Walks" Relationship="Self.FK_Walk_Walker" FromRole="Walker" ToRole="Walk" />
         </EntityType>
         <EntityType Name="WalkStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Explanation" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Walks" Relationship="DogWalkModel.FK_Walk_WalkStatus" FromRole="WalkStatu" ToRole="Walk" />
+          <NavigationProperty Name="Walks" Relationship="Self.FK_Walk_WalkStatus" FromRole="WalkStatus" ToRole="Walk" />
         </EntityType>
-        <Association Name="FK_Payment_PaymentStatus">
-          <End Type="DogWalkModel.PaymentStatus" Role="PaymentStatu" Multiplicity="1" />
-          <End Type="DogWalkModel.Payment" Role="Payment" Multiplicity="*" />
+        <Association Name="FK_Message_ContactMethod">
+          <End Role="ContactMethod" Type="Self.ContactMethod" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PaymentStatu">
+            <Principal Role="ContactMethod">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ContactMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Walker">
+          <End Role="Walker" Type="Self.Walker" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentStatus">
+          <End Role="PaymentStatus" Type="DogWalkModel.PaymentStatus" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Payment">
@@ -328,8 +323,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_PaymentType">
-          <End Type="DogWalkModel.PaymentType" Role="PaymentType" Multiplicity="1" />
-          <End Type="DogWalkModel.Payment" Role="Payment" Multiplicity="*" />
+          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="ID" />
@@ -339,9 +334,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Walk_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Walk_Walker">
-          <End Type="DogWalkModel.Walker" Role="Walker" Multiplicity="0..1" />
-          <End Type="DogWalkModel.Walk" Role="Walk" Multiplicity="*" />
+          <End Role="Walker" Type="Self.Walker" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Walker">
               <PropertyRef Name="ID" />
@@ -352,10 +359,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Walk_WalkStatus">
-          <End Type="DogWalkModel.WalkStatus" Role="WalkStatu" Multiplicity="1" />
-          <End Type="DogWalkModel.Walk" Role="Walk" Multiplicity="*" />
+          <End Role="WalkStatus" Type="DogWalkModel.WalkStatus" Multiplicity="1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="WalkStatu">
+            <Principal Role="WalkStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Walk">
@@ -363,131 +370,125 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ContactMethod">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ContactMethodType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Messages" Relationship="DogWalkModel.FK_Message_ContactMethod" FromRole="ContactMethod" ToRole="Message" />
-        </EntityType>
-        <Association Name="FK_Message_ContactMethod">
-          <End Type="DogWalkModel.ContactMethod" Role="ContactMethod" Multiplicity="1" />
-          <End Type="DogWalkModel.Message" Role="Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ContactMethod">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Message">
-              <PropertyRef Name="ContactMethodID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Walk_Payment">
-          <End Type="DogWalkModel.Payment" Role="Payment" Multiplicity="0..1" />
-          <End Type="DogWalkModel.Walk" Role="Walk" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Walk">
-              <PropertyRef Name="PaymentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Message_Walker">
-          <End Type="DogWalkModel.Walker" Role="Walker" Multiplicity="1" />
-          <End Type="DogWalkModel.Message" Role="Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Walker">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Message">
-              <PropertyRef Name="WalkerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityContainer Name="DogWalkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactMethods" EntityType="Self.ContactMethod" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PaymentStatus1" EntityType="DogWalkModel.PaymentStatus" />
+          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
+          <EntitySet Name="Walks" EntityType="Self.Walk" />
+          <EntitySet Name="Walkers" EntityType="Self.Walker" />
+          <EntitySet Name="WalkStatus1" EntityType="DogWalkModel.WalkStatus" />
+          <AssociationSet Name="FK_Message_ContactMethod" Association="Self.FK_Message_ContactMethod">
+            <End Role="ContactMethod" EntitySet="ContactMethods" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Walker" Association="Self.FK_Message_Walker">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentStatus" Association="Self.FK_Payment_PaymentStatus">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus1" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentType" Association="Self.FK_Payment_PaymentType">
+            <End Role="PaymentType" EntitySet="PaymentTypes" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Payment" Association="Self.FK_Walk_Payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Walker" Association="Self.FK_Walk_Walker">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_WalkStatus" Association="Self.FK_Walk_WalkStatus">
+            <End Role="WalkStatus" EntitySet="WalkStatus1" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DogWalkModelStoreContainer" CdmEntityContainer="DogWalkDatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="DogWalkModelStoreContainer" CdmEntityContainer="DogWalkEntities">
+          <EntitySetMapping Name="ContactMethods">
+            <EntityTypeMapping TypeName="DogWalkModel.ContactMethod">
+              <MappingFragment StoreEntitySet="ContactMethod">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContactMethodType" ColumnName="ContactMethodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="DogWalkModel.Message">
               <MappingFragment StoreEntitySet="Message">
-                <ScalarProperty Name="ContactMethodID" ColumnName="ContactMethodID" />
-                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+                <ScalarProperty Name="ContactMethodID" ColumnName="ContactMethodID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="DogWalkModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
-                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
-                <ScalarProperty Name="DatePaid" ColumnName="DatePaid" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DatePaid" ColumnName="DatePaid" />
+                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentStatus">
+          <EntitySetMapping Name="PaymentStatus1">
             <EntityTypeMapping TypeName="DogWalkModel.PaymentStatus">
               <MappingFragment StoreEntitySet="PaymentStatus">
-                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
             <EntityTypeMapping TypeName="DogWalkModel.PaymentType">
               <MappingFragment StoreEntitySet="PaymentType">
-                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
-                <ScalarProperty Name="PaymentType1" ColumnName="PaymentType" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PaymentType1" ColumnName="PaymentType" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Walks">
             <EntityTypeMapping TypeName="DogWalkModel.Walk">
               <MappingFragment StoreEntitySet="Walk">
-                <ScalarProperty Name="DateOfWalk" ColumnName="DateOfWalk" />
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
-                <ScalarProperty Name="WalkStatusID" ColumnName="WalkStatusID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WalkStatusID" ColumnName="WalkStatusID" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="DateOfWalk" ColumnName="DateOfWalk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Walkers">
             <EntityTypeMapping TypeName="DogWalkModel.Walker">
               <MappingFragment StoreEntitySet="Walker">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WalkStatus">
+          <EntitySetMapping Name="WalkStatus1">
             <EntityTypeMapping TypeName="DogWalkModel.WalkStatus">
               <MappingFragment StoreEntitySet="WalkStatus">
-                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ContactMethods">
-            <EntityTypeMapping TypeName="DogWalkModel.ContactMethod">
-              <MappingFragment StoreEntitySet="ContactMethod">
-                <ScalarProperty Name="ContactMethodType" ColumnName="ContactMethodType" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -505,7 +506,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

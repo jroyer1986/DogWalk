@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogWalk.Data.Repositories
+namespace DogWalk.Data.Entities
 {
     using System;
     using System.Collections.Generic;

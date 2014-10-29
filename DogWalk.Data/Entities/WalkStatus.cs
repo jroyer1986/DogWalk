@@ -7,21 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogWalk.Data.Repositories
+namespace DogWalk.Data.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Walk
+    public partial class WalkStatus
     {
-        public int ID { get; set; }
-        public int WalkStatusID { get; set; }
-        public Nullable<int> WalkerID { get; set; }
-        public Nullable<int> PaymentID { get; set; }
-        public System.DateTime DateOfWalk { get; set; }
+        public WalkStatus()
+        {
+            this.Walks = new HashSet<Walk>();
+        }
     
-        public virtual Walker Walker { get; set; }
-        public virtual WalkStatus WalkStatus { get; set; }
-        public virtual Payment Payment { get; set; }
+        public int ID { get; set; }
+        public string Status { get; set; }
+        public string Explanation { get; set; }
+    
+        public virtual ICollection<Walk> Walks { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DogWalk.Data.Models;
+﻿using DogWalk.Data.Entities;
+using DogWalk.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DogWalk.Data.Repositories
 {
     public class WalkerRepository
     {
-        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
 
         public WalkerModel GetWalkerByID(int id)
@@ -50,7 +51,7 @@ namespace DogWalk.Data.Repositories
             //convert each walker in the list to a WalkerModel and add it to a list of WalkerModels to be passed to the controller
             var listOfWalkerModels = new List<WalkerModel>();
 
-            foreach(Walker walker in listOfWalkers)
+            foreach(Walker walker in listOfWalkers.AsEnumerable())
             {
                 WalkerModel walkerModel = new WalkerModel(walker.ID, walker.Name, walker.Phone, walker.Email);
                 listOfWalkerModels.Add(walkerModel);

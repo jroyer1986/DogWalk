@@ -7,22 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogWalk.Data.Repositories
+namespace DogWalk.Data.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentStatus
+    public partial class ContactMethod
     {
-        public PaymentStatus()
+        public ContactMethod()
         {
-            this.Payments = new HashSet<Payment>();
+            this.Messages = new HashSet<Message>();
         }
     
         public int ID { get; set; }
-        public string Status { get; set; }
-        public string Explanation { get; set; }
+        public string ContactMethodType { get; set; }
     
-        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

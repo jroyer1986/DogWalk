@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogWalk.Data.Repositories
+namespace DogWalk.Data.Entities
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DogWalkDatabaseEntities : DbContext
+    public partial class DogWalkEntities : DbContext
     {
-        public DogWalkDatabaseEntities()
-            : base("name=DogWalkDatabaseEntities")
+        public DogWalkEntities()
+            : base("name=DogWalkEntities")
         {
         }
     
@@ -25,13 +25,13 @@ namespace DogWalk.Data.Repositories
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ContactMethod> ContactMethods { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<PaymentStatus> PaymentStatus { get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatus1 { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Walk> Walks { get; set; }
         public virtual DbSet<Walker> Walkers { get; set; }
-        public virtual DbSet<WalkStatus> WalkStatus { get; set; }
-        public virtual DbSet<ContactMethod> ContactMethods { get; set; }
+        public virtual DbSet<WalkStatus> WalkStatus1 { get; set; }
     }
 }

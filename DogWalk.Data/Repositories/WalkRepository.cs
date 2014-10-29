@@ -1,4 +1,5 @@
-﻿using DogWalk.Data.Models;
+﻿using DogWalk.Data.Entities;
+using DogWalk.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DogWalk.Data.Repositories
     class WalkRepository
     {
         //Create an instance of the repository
-        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
         private static decimal costPerWalk = 23;
 

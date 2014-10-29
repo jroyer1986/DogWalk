@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DogWalk.Data.Models;
+using DogWalk.Data.Entities;
 
 namespace DogWalk.Data.Repositories
 {
     class PaymentRepository
     {
         //Create an instance of the repository
-        DogWalkDatabaseEntities _dogWalkDatabaseEntities = new DogWalkDatabaseEntities();
+        DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
         public void SchedulePayment(DateTime dateStart, DateTime dateEnd, PaymentModel payment)
         {
@@ -46,7 +47,7 @@ namespace DogWalk.Data.Repositories
             //update payment status to cancelled
             if(paymentToCancel != null)
             {
-                var cancelStatus = _dogWalkDatabaseEntities.PaymentStatus.FirstOrDefault(m => m.Status == "cancelled");
+                var cancelStatus = _dogWalkDatabaseEntities.PaymentStatus1.FirstOrDefault(m => m.Status == "cancelled");
 
                 paymentToCancel.PaymentStatusID = cancelStatus.ID;
                 _dogWalkDatabaseEntities.SaveChanges();
@@ -64,7 +65,7 @@ namespace DogWalk.Data.Repositories
             //change payment status to paid
             if(dbPayment != null)
             {
-                var payPayment = _dogWalkDatabaseEntities.PaymentStatus.FirstOrDefault(m => m.Status == "Paid");
+                var payPayment = _dogWalkDatabaseEntities.PaymentStatus1.FirstOrDefault(m => m.Status == "Paid");
 
                 dbPayment.PaymentStatusID = payPayment.ID;
                 _dogWalkDatabaseEntities.SaveChanges();

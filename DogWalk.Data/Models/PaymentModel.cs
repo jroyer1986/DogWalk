@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DogWalk.Data.Repositories;
+using DogWalk.Data.Entities;
 
 namespace DogWalk.Data.Models
 {
