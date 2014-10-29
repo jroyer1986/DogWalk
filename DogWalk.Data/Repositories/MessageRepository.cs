@@ -24,7 +24,7 @@ namespace DogWalk.Data.Repositories
             _dogWalkDatabaseEntities.SaveChanges();
         }
 
-        public IEnumerable<MessageModel> GetMessages(DateTime? dateStart, DateTime? dateEnd, int id)
+        public IEnumerable<MessageModel> GetMessages(DateTime? dateStart, DateTime? dateEnd, int? id)
         {
             var listOfMessages = _dogWalkDatabaseEntities.Messages.AsQueryable();
 
