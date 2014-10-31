@@ -15,7 +15,7 @@ namespace DogWalk.Controllers
         // GET: Walker
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("ViewWalkerList");
         }
 
         [HttpGet]
@@ -41,8 +41,8 @@ namespace DogWalk.Controllers
 
         public ActionResult ViewWalker(int id)
         {
-            _walkerRepository.GetWalkerByID(id);
-            return View();
+            var walker = _walkerRepository.GetWalkerByID(id);
+            return View(walker);
         }
 
         [HttpGet]

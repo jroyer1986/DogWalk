@@ -106,7 +106,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Walker\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -116,6 +115,7 @@
     <Content Include="Views\Walker\ViewWalker.cshtml" />
     <Content Include="Views\Walker\Update.cshtml" />
     <Content Include="Views\Walker\Delete.cshtml" />
+    <Content Include="Views\Walker\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
