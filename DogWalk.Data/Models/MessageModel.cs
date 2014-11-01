@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DogWalk.Data.Entities;
+using DogWalk.Data.Models.Enums;
+
 namespace DogWalk.Data.Models
 {
     public class MessageModel
@@ -15,15 +17,19 @@ namespace DogWalk.Data.Models
         public WalkerModel Walker { get; set; }
         public string Body { get; set; }
         public DateTime DateSent { get; set; }
-        public ContactMethod ContactMethod { get; set; }
+        public Enums.ContactMethod ContactMethod { get; set; }
 
         #endregion
 
         #region Constructor
 
-        public MessageModel() { }
+        public MessageModel()
+        {
+            DateSent = DateTime.Now;
+            Walker = new WalkerModel();
+        }
 
-        public MessageModel(int id, WalkerModel walker, string body, DateTime dateSent, ContactMethod contactMethod)
+        public MessageModel(int id, WalkerModel walker, string body, DateTime dateSent, Enums.ContactMethod contactMethod)
         {
             ID = id;
             Walker = walker;
@@ -41,7 +47,7 @@ namespace DogWalk.Data.Models
             Walker = walkerModel;
             Body = message.Body;
             DateSent = message.DateSent;
-            ContactMethod = message.ContactMethod;
+            ContactMethod = (Enums.ContactMethod) message.ContactMethod.ID;
         }
 
         #endregion

@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DogWalk.Data.Entities;
+using DogWalk.Data.Models.Enums;
+
 namespace DogWalk.Data.Repositories
 {
-    class MessageRepository
+    public class MessageRepository
     {
         DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
 
@@ -18,13 +20,13 @@ namespace DogWalk.Data.Repositories
             dbmessage.WalkerID = message.Walker.ID;
             dbmessage.Body = message.Body;
             dbmessage.DateSent = message.DateSent;
-            dbmessage.ContactMethodID = message.ContactMethod.ID;
+            dbmessage.ContactMethodID = (int)message.ContactMethod;
 
             _dogWalkDatabaseEntities.Messages.Add(dbmessage);
             _dogWalkDatabaseEntities.SaveChanges();
         }
 
-        public IEnumerable<MessageModel> GetMessages(DateTime? dateStart, DateTime? dateEnd, int? id)
+        public IEnumerable<MessageModel> GetMessages(DateTime? dateStart, DateTime? dateEnd, int? walkerID)
         {
             var listOfMessages = _dogWalkDatabaseEntities.Messages.AsQueryable();
 
@@ -33,9 +35,9 @@ namespace DogWalk.Data.Repositories
                 listOfMessages = listOfMessages.Where(m => m.DateSent >= dateStart.Value && m.DateSent <= dateEnd.Value);
             }                            
             
-            if(id != null)
+            if(walkerID != null)
             {
-                listOfMessages = listOfMessages.Where(m => m.WalkerID == id);
+                listOfMessages = listOfMessages.Where(m => m.WalkerID == walkerID);
             } 
 
             if(listOfMessages != null)

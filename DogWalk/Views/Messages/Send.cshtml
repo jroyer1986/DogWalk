@@ -1,0 +1,18 @@
+﻿@using DogWalk.Data.Models.Enums;
+
+@model DogWalk.Data.Models.MessageModel
+
+@{
+    ViewBag.Title = "Send";
+}
+
+<h2>Send</h2>
+
+@using (Html.BeginForm()) 
+{
+    Html.RenderPartial("Partials/CreateEdit", Model);
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
