@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\WalkController.cs" />
     <Compile Include="Controllers\WalkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,6 +182,10 @@
     <Content Include="Views\Payment\GetPaymentByID.cshtml" />
     <Content Include="Views\Payment\GetPayments.cshtml" />
     <Content Include="Views\Payment\Schedule.cshtml" />
+    <Content Include="Views\Walk\GetListOfScheduledWalks.cshtml" />
+    <Content Include="Views\Walk\GetWalkByID.cshtml" />
+    <Content Include="Views\Walk\Index.cshtml" />
+    <Content Include="Views\Walk\ScheduleWalksByDate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DogWalk.Data.Repositories
 {
-    class WalkRepository
+    public class WalkRepository
     {
         //Create an instance of the repository
         DogWalkEntities _dogWalkDatabaseEntities = new DogWalkEntities();
@@ -186,6 +186,13 @@ namespace DogWalk.Data.Repositories
             }
 
 
+        }
+
+        public void CancelWalk(int id)
+        {
+            Walk walkToCancel = _dogWalkDatabaseEntities.Walks.FirstOrDefault(m => m.ID == id);
+            _dogWalkDatabaseEntities.Walks.Remove(walkToCancel);
+            _dogWalkDatabaseEntities.SaveChanges();
         }
     }
 }

@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Models\Enums\ContactMethod.cs" />
     <Compile Include="Models\Enums\DayOfWeek.cs" />
+    <Compile Include="Models\ListOfWalksToSchedule.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentStatusModel.cs" />

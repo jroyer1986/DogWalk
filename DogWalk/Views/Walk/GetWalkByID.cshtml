@@ -1,0 +1,26 @@
+﻿@model DogWalk.Data.Models.WalkModel
+
+@{
+    ViewBag.Title = "GetWalkByID";
+}
+
+<h2>GetWalkByID</h2>
+
+<div>
+    <h4>WalkModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfWalk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfWalk)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
