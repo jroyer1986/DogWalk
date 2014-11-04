@@ -29,7 +29,7 @@ namespace DogWalk.Data.Repositories
             
         }
 
-        public IEnumerable<WalkerModel> GetWalkers(string name = null, string phone = null, string email = null)
+        public IEnumerable<WalkerModel> GetWalkers(string name = null, string phone = null, string email = null, bool disabled = false)
         {
             //get list of walkers from database based on paramaters passed
             var listOfWalkers = _dogWalkDatabaseEntities.Walkers.AsQueryable();
@@ -47,13 +47,17 @@ namespace DogWalk.Data.Repositories
             {
                 listOfWalkers = listOfWalkers.Where(e => e.Email.Contains(email));
             }
+            if(disabled == false)
+            {
+                listOfWalkers = listOfWalkers.Where(e => e.Disabled.Equals(false));
+            }
 
             //convert each walker in the list to a WalkerModel and add it to a list of WalkerModels to be passed to the controller
             var listOfWalkerModels = new List<WalkerModel>();
 
             foreach(Walker walker in listOfWalkers.AsEnumerable())
             {
-                WalkerModel walkerModel = new WalkerModel(walker.ID, walker.Name, walker.Phone, walker.Email);
+                WalkerModel walkerModel = new WalkerModel(walker.ID, walker.Name, walker.Phone, walker.Email, walker.Disabled);
                 listOfWalkerModels.Add(walkerModel);
             }
             return listOfWalkerModels;
@@ -65,6 +69,7 @@ namespace DogWalk.Data.Repositories
             dbwalker.Name = walker.Name;
             dbwalker.Phone = walker.Phone;
             dbwalker.Email = walker.Email;
+            dbwalker.Disabled = walker.Disabled;
 
             _dogWalkDatabaseEntities.Walkers.Add(dbwalker);
             _dogWalkDatabaseEntities.SaveChanges();
@@ -95,7 +100,7 @@ namespace DogWalk.Data.Repositories
 
             if (walkerToDelete != null)
             {
-                _dogWalkDatabaseEntities.Walkers.Remove(walkerToDelete);
+                walkerToDelete.Disabled = true;
                 _dogWalkDatabaseEntities.SaveChanges();
             }
         }

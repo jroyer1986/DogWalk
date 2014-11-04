@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DogWalk.Data.Models.PaymentModel>
+
+@{
+    ViewBag.Title = "GetPayments";
+}
+
+<h2>GetPayments</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Schedule")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr @if(item.PaymentStatus.ID == 3) {@:style = "color:red"
+        }>
+            
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePaid)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "GetPaymentByID", new { id=item.ID }) |
+            @Html.ActionLink("Cancel", "Cancel", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

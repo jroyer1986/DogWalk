@@ -150,6 +150,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\WalkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +178,9 @@
     <Content Include="Views\Messages\ViewListOfMessages.cshtml" />
     <Content Include="Views\Messages\ViewMessage.cshtml" />
     <Content Include="Views\Messages\Partials\CreateEdit.cshtml" />
+    <Content Include="Views\Payment\GetPaymentByID.cshtml" />
+    <Content Include="Views\Payment\GetPayments.cshtml" />
+    <Content Include="Views\Payment\Schedule.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

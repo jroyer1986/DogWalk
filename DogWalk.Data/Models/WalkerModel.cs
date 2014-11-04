@@ -14,17 +14,19 @@ namespace DogWalk.Data.Models
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public bool Disabled { get; set; }  
 
         #endregion
 
         #region Constructor
 
-        public WalkerModel(int id, string name, string phone, string email)
+        public WalkerModel(int id, string name, string phone, string email, bool disabled = false)
         {
             ID = id;
             Name = name;
             Phone = phone;
             Email = email;
+            Disabled = disabled;
         }
 
         public WalkerModel() { }    

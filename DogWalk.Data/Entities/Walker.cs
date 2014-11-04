@@ -24,6 +24,7 @@ namespace DogWalk.Data.Entities
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Walk> Walks { get; set; }

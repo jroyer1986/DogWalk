@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DogWalk.Data.Entities;
 
 namespace DogWalk.Data.Models
 {
@@ -26,6 +27,13 @@ namespace DogWalk.Data.Models
         }
 
         public PaymentTypeModel() { }
+
+        public PaymentTypeModel(PaymentType paymentType)
+        {
+            ID = paymentType.ID;
+            PaymentType = paymentType.PaymentType1;
+            Explanation = paymentType.Explanation;
+        }
 
         #endregion
     }
