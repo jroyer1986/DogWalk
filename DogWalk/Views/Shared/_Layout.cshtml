@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet' href='fullcalendar/fullcalendar.css" />
     <script src="lib/jquery.min.js"></script>
     <script src="lib/moment.min.js"></script>
     <script src="fullcalendar/fullcalendar.js"></script>
@@ -15,10 +15,15 @@
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script type="text/javascript">
-    $(document).ready(function () {
-        $(".datePicker").datepicker();
-    })
+        $(document).ready(function () {
+            $(".datePicker").datepicker();
+        });
 </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#calendar").fullCalendar()
+        });
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
