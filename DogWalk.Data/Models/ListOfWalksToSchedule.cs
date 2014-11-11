@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace DogWalk.Data.Models
 {
-    class ListOfWalksToSchedule
+    public class ListOfWalksToSchedule
     {
-        public DateTime StartDate {get;set;}
-        public DateTime EndDate {get;set;}
-        public DayOfWeek DaysToCheck {get;set;}
-        public WalkModel Walk {get;set;}
+        public DateTime? StartDate {get;set;}
+        public DateTime? EndDate {get;set;}
+        public List<DayOfWeek> DaysToCheck {get;set;}
 
-        public ListOfWalksToSchedule(DateTime startDate, DateTime endDate, DayOfWeek daysToCheck, WalkModel walkModel)
+        public ListOfWalksToSchedule(DateTime startDate, DateTime? endDate, List<DayOfWeek> daysToCheck, WalkModel walkModel)
         {
             StartDate = startDate;
-            EndDate = endDate;
+            EndDate = endDate.Value;
             DaysToCheck = daysToCheck;
-            Walk = walkModel;
+            
         }
 
         public ListOfWalksToSchedule() { }

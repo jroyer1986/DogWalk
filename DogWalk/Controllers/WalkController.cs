@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DogWalk.Data.Repositories;
 using DogWalk.Data.Models;
+using DogWalk.Helpers;
 
 namespace DogWalk.Controllers
 {
@@ -26,14 +27,36 @@ namespace DogWalk.Controllers
         //    WalkModel walkModel = new WalkModel();
         //    return View(walkModel);
         //}
-        
-        public ActionResult ScheduleWalksByDate(DateTime DateRangeStart, DateTime? DateRangeEnd, DayOfWeek[] DayOfWeek, WalkModel Walk)
+        [HttpGet]
+        public ActionResult ScheduleWalksByDate()
         {
-            if(DateRangeEnd == null)
+            var listOfWalksToSchedule = new ListOfWalksToSchedule();
+            ViewBag.DaysOfWeekList = HtmlHelpers.ToSelectListEnumerable(typeof(DayOfWeek),null);
+
+            WalkStatusModel walkStatusModel = new WalkStatusModel(); 
+            WalkerModel walkerModel = new WalkerModel();
+            PaymentModel paymentModel = new PaymentModel();
+
+            return View(listOfWalksToSchedule);
+        }
+        
+        [HttpPost]
+        public ActionResult ScheduleWalksByDate(ListOfWalksToSchedule scheduledWalks, string[] dayOfWeek)
+        {
+
+            var validDaysOfWeek = dayOfWeek.Where(m => !m.Equals("false"));
+            scheduledWalks.DaysToCheck = new List<DayOfWeek>();
+            foreach (var day in validDaysOfWeek)
             {
-                DateRangeEnd = DateRangeStart.AddDays(1);
+                DayOfWeek date = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day);
+                scheduledWalks.DaysToCheck.Add(date);
             }
-            _walkRepository.ScheduleWalks(DateRangeStart, DateRangeEnd.Value, DayOfWeek.ToList(), Walk);
+            
+            if(!scheduledWalks.EndDate.HasValue)
+            {
+                scheduledWalks.EndDate  = scheduledWalks.StartDate.Value.AddDays(1);
+            }
+            _walkRepository.ScheduleWalks(scheduledWalks.StartDate.Value, scheduledWalks.EndDate.Value, scheduledWalks.DaysToCheck);
             return RedirectToAction("GetListOfScheduledWalks");
         }
 
@@ -52,7 +75,7 @@ namespace DogWalk.Controllers
         public ActionResult CancelWalk(WalkModel walkModel)
         {
             _walkRepository.CancelWalk(walkModel.ID);
-            return RedirectToAction("GetWalkByID", new { id = walkModel.ID });
+            return RedirectToAction("Index");
         }
 
         public void PayForWalksByDateRange()
